@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>SUMO Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+background:#0b0b0b;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:30px;
+}
+button{
+padding:15px 30px;
+background:#ff0055;
+border:none;
+color:white;
+font-size:18px;
+border-radius:10px;
+}
+select, input{
+padding:10px;
+width:90%;
+margin:10px;
+}
+</style>
+</head>
+<body>
+
+<h1>🎵 SUMO Studio</h1>
+<p>Profesyonel AI Müzik & Ses Stüdyosu</p>
+
+<select id="style">
+<option>Pop</option>
+<option>Rap</option>
+<option>Arabesk</option>
+<option>Türk Sanat Müziği</option>
+<option>Rock</option>
+<option>EDM</option>
+<option>Afro</option>
+<option>Trap</option>
+</select>
+
+<select id="lang">
+<option>Türkçe</option>
+<option>English</option>
+<option>Arabic</option>
+<option>German</option>
+<option>Spanish</option>
+<option>French</option>
+<option>Italian</option>
+<option>Japanese</option>
+</select>
+
+<input id="lyrics" placeholder="Şarkı sözlerini yaz...">
+
+<button onclick="make()">Şarkı Oluştur</button>
+
+<p id="out"></p>
+
+<script>
+function make(){
+document.getElementById("out").innerHTML="🎧 Şarkı oluşturuluyor... (Demo)";
+}
+</script>
+
+</body>
+</html>
