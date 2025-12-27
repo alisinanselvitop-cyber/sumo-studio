@@ -1,70 +1,366 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>SUMO Studio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{
-background:#0b0b0b;
-color:white;
-font-family:Arial;
-text-align:center;
-padding:30px;
-}
-button{
-padding:15px 30px;
-background:#ff0055;
-border:none;
-color:white;
-font-size:18px;
-border-radius:10px;
-}
-select, input{
-padding:10px;
-width:90%;
-margin:10px;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SUMO Studio</title>
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --card:#121212;
+      --muted:#bdbdbd;
+      --text:#ffffff;
+      --accent:#ff0055;
+      --accent2:#ff2a76;
+      --border:#2a2a2a;
+      --ok:#3ddc97;
+      --warn:#ffcc00;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      display:flex;
+      justify-content:center;
+      padding:28px 14px;
+    }
+    .wrap{width:100%;max-width:520px}
+    .title{
+      display:flex;align-items:center;justify-content:center;gap:12px;
+      margin:18px 0 6px 0;
+      font-weight:800;
+      letter-spacing:.2px;
+      font-size:44px;
+    }
+    .subtitle{
+      text-align:center;
+      color:var(--muted);
+      font-size:18px;
+      margin:0 0 22px 0;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    label{display:block;color:var(--muted);font-size:13px;margin:14px 0 8px}
+    select, textarea, input{
+      width:100%;
+      border:1px solid var(--border);
+      background:#fff;
+      color:#111;
+      border-radius:10px;
+      padding:12px 12px;
+      font-size:16px;
+      outline:none;
+    }
+    textarea{
+      min-height:92px;
+      resize:vertical;
+    }
+    .btn{
+      width:100%;
+      margin-top:16px;
+      border:0;
+      border-radius:12px;
+      padding:14px 16px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#fff;
+      font-size:20px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .row{
+      display:flex;gap:10px;flex-wrap:wrap;margin-top:12px
+    }
+    .pill{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:12px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .status{
+      margin-top:14px;
+      font-size:14px;
+      color:var(--muted);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      margin-top:4px;background:var(--warn);
+      flex:0 0 auto;
+    }
+    .dot.ok{background:var(--ok)}
+    .out{
+      margin-top:14px;
+      background:rgba(255,255,255,.03);
+      border:1px dashed var(--border);
+      border-radius:12px;
+      padding:12px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+    .audioBox{
+      margin-top:14px;
+      display:none;
+      background:rgba(0,0,0,.25);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+    }
+    audio{width:100%}
+    .small{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.4}
+    .danger{
+      color:#ff9aa2;
+      font-size:12px;
+      margin-top:10px;
+      line-height:1.35;
+    }
+    a{color:#9ad0ff}
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <div class="title">🎵 <span>SUMO Studio</span></div>
+    <p class="subtitle">Profesyonel AI Müzik & Ses Stüdyosu</p>
 
-<h1>🎵 SUMO Studio</h1>
-<p>Profesyonel AI Müzik & Ses Stüdyosu</p>
+    <div class="card">
+      <label for="genre">Tarz</label>
+      <select id="genre">
+        <option>Pop</option>
+        <option>Rap</option>
+        <option>Rock</option>
+        <option>Arabesk</option>
+        <option>Lo-Fi</option>
+        <option>Türkü</option>
+      </select>
 
-<select id="style">
-<option>Pop</option>
-<option>Rap</option>
-<option>Arabesk</option>
-<option>Türk Sanat Müziği</option>
-<option>Rock</option>
-<option>EDM</option>
-<option>Afro</option>
-<option>Trap</option>
-</select>
+      <label for="lang">Dil</label>
+      <select id="lang">
+        <option>Türkçe</option>
+        <option>English</option>
+      </select>
 
-<select id="lang">
-<option>Türkçe</option>
-<option>English</option>
-<option>Arabic</option>
-<option>German</option>
-<option>Spanish</option>
-<option>French</option>
-<option>Italian</option>
-<option>Japanese</option>
-</select>
+      <label for="lyrics">Söz / Prompt</label>
+      <textarea id="lyrics" placeholder="[Intro] [alçak fısıltı] Yorgunum..."></textarea>
 
-<input id="lyrics" placeholder="Şarkı sözlerini yaz...">
+      <label for="apiKey">API Key (opsiyonel)</label>
+      <input id="apiKey" type="password" placeholder="Örn: Replicate / başka servis anahtarın varsa buraya" />
 
-<button onclick="make()">Şarkı Oluştur</button>
+      <button class="btn" id="btn">Şarkı Oluştur</button>
 
-<p id="out"></p>
+      <div class="row">
+        <div class="pill">⚡ Hız: bağlantına göre</div>
+        <div class="pill">🔒 Key cihazda kalır</div>
+        <div class="pill">🎧 Çıkış: mp3/wav</div>
+      </div>
+
+      <div class="status" id="status">
+        <div class="dot" id="dot"></div>
+        <div id="statusText">Hazır. “Şarkı Oluştur”a bas.</div>
+      </div>
+
+      <div class="audioBox" id="audioBox">
+        <audio id="audio" controls></audio>
+        <div class="small" id="audioMeta"></div>
+      </div>
+
+      <div class="out" id="out">
+        Bu sayfa iki modda çalışır:
+        <br><br>
+        <b>1) Demo (Anahtarsız):</b> Hızlıca bir demo ses üretir (tarz hissi için).
+        <br>
+        <b>2) Gerçek Üretim (API key ile):</b> Replicate gibi bir servise istek atıp gerçek çıktıyı oynatır.
+      </div>
+
+      <div class="danger">
+        Not: Tamamen “sınırsız ve ücretsiz” gerçek müzik üretimi sağlayan GPU servisleri genelde yok.
+        Ücretsiz katmanlar çoğunlukla limitlidir. Anahtar girmezsen demo çalışır.
+      </div>
+    </div>
+  </div>
 
 <script>
-function make(){
-document.getElementById("out").innerHTML="🎧 Şarkı oluşturuluyor... (Demo)";
-}
-</script>
+  // ====== AYAR: Buraya kendi backend URL'in olursa ekleyebilirsin (opsiyonel) ======
+  // Eğer ileride kendi sunucunu kurarsan: https://seninsite.com/generate gibi.
+  const BACKEND_URL = ""; // boş kalsın
 
+  const el = (id)=>document.getElementById(id);
+  const btn = el("btn");
+  const statusText = el("statusText");
+  const dot = el("dot");
+  const audioBox = el("audioBox");
+  const audio = el("audio");
+  const audioMeta = el("audioMeta");
+
+  function setStatus(text, ok=false){
+    statusText.textContent = text;
+    dot.className = "dot" + (ok ? " ok" : "");
+  }
+
+  // ====== DEMO SES: tarayıcıda kısa bir “melodi hissi” verir (gerçek şarkı değil) ======
+  // Anahtar yoksa en azından “butona bastım çalışıyor mu?” hissi verir.
+  async function demoBeepSong({genre, lang, lyrics}){
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const sr = ctx.sampleRate;
+    const seconds = 6;
+    const length = sr * seconds;
+    const buffer = ctx.createBuffer(1, length, sr);
+    const data = buffer.getChannelData(0);
+
+    // basit melodi: genre'a göre minik değişiklik
+    const base = (genre === "Rap") ? 92 : (genre === "Rock") ? 110 : (genre === "Arabesk") ? 98 : 104;
+    const notes = [0,3,5,7,5,3,0,-2].map(n => base * Math.pow(2, n/12));
+
+    for(let i=0;i<length;i++){
+      const t = i/sr;
+      const step = Math.floor(t*2) % notes.length;
+      const f = notes[step];
+      // sinüs + hafif ikinci harmonik
+      let v = Math.sin(2*Math.PI*f*t) * 0.22 + Math.sin(2*Math.PI*(f*2)*t)*0.06;
+
+      // basit envelope
+      const beat = (t*2) % 1;
+      const env = Math.min(1, beat*10) * Math.min(1, (1-beat)*10);
+      v *= (0.6 + 0.4*env);
+
+      // minik hi-hat hissi
+      const hh = ((t*8)%1 < 0.06) ? (Math.random()*2-1)*0.06 : 0;
+
+      data[i] = v + hh;
+    }
+
+    // buffer -> wav blob
+    const wavBlob = bufferToWavBlob(buffer);
+    return URL.createObjectURL(wavBlob);
+  }
+
+  // ====== (Opsiyonel) GERÇEK ÜRETİM: API key varsa bir yere istek atar ======
+  // Not: GitHub Pages sadece statik; burada direkt “gizli” şekilde sunucu anahtarları saklanamaz.
+  // Replicate gibi servisleri doğrudan tarayıcıdan çağırmak mümkündür ama key kullanıcıda görünür.
+  async function realGenerate({apiKey, genre, lang, lyrics}){
+    // 1) Kendi backend'in varsa (önerilen)
+    if(BACKEND_URL){
+      const res = await fetch(BACKEND_URL, {
+        method:"POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({apiKey, genre, lang, lyrics})
+      });
+      if(!res.ok) throw new Error("Backend hata verdi: " + res.status);
+      const j = await res.json();
+      // j.audioUrl bekliyoruz
+      return j.audioUrl;
+    }
+
+    // 2) Backend yoksa: Güvenli değil, o yüzden burada durduruyoruz
+    // İstersen sonra “hangi servisi kullanacağız” deyip ben sana uygun şekilde yazarım.
+    throw new Error("Gerçek üretim için backend (sunucu) lazım. Şimdilik demo çalışacak.");
+  }
+
+  btn.addEventListener("click", async ()=>{
+    const genre = el("genre").value;
+    const lang = el("lang").value;
+    const lyrics = el("lyrics").value.trim();
+    const apiKey = el("apiKey").value.trim();
+
+    audioBox.style.display = "none";
+    audio.pause();
+    audio.src = "";
+
+    if(!lyrics){
+      setStatus("Söz/prompt boş. Bir şey yaz.", false);
+      return;
+    }
+
+    btn.disabled = true;
+    setStatus("Üretiliyor... (Demo)", false);
+
+    try{
+      let url;
+      if(apiKey){
+        setStatus("Üretiliyor... (Gerçek üretim denemesi)", false);
+        try{
+          url = await realGenerate({apiKey, genre, lang, lyrics});
+          setStatus("Hazır! (Gerçek çıktı)", true);
+          audioMeta.textContent = `Mod: Gerçek | Tarz: ${genre} | Dil: ${lang}`;
+        }catch(e){
+          // fallback demo
+          url = await demoBeepSong({genre, lang, lyrics});
+          setStatus("Gerçek üretim için sunucu lazım. Demo üretildi ✅", true);
+          audioMeta.textContent = `Mod: Demo | Tarz: ${genre} | Dil: ${lang}`;
+        }
+      }else{
+        url = await demoBeepSong({genre, lang, lyrics});
+        setStatus("Demo hazır ✅ (API key girersen gerçek üretime bağlarız)", true);
+        audioMeta.textContent = `Mod: Demo | Tarz: ${genre} | Dil: ${lang}`;
+      }
+
+      audio.src = url;
+      audioBox.style.display = "block";
+      audio.play().catch(()=>{});
+    }catch(err){
+      setStatus("Hata: " + (err?.message || err), false);
+    }finally{
+      btn.disabled = false;
+    }
+  });
+
+  // ====== AudioBuffer -> WAV Blob ======
+  function bufferToWavBlob(buffer){
+    const numOfChan = buffer.numberOfChannels;
+    const length = buffer.length * numOfChan * 2 + 44;
+    const ab = new ArrayBuffer(length);
+    const view = new DataView(ab);
+
+    const writeString = (view, offset, string)=>{
+      for (let i = 0; i < string.length; i++) view.setUint8(offset + i, string.charCodeAt(i));
+    };
+
+    let offset = 0;
+    writeString(view, offset, 'RIFF'); offset += 4;
+    view.setUint32(offset, 36 + buffer.length * numOfChan * 2, true); offset += 4;
+    writeString(view, offset, 'WAVE'); offset += 4;
+    writeString(view, offset, 'fmt '); offset += 4;
+    view.setUint32(offset, 16, true); offset += 4;
+    view.setUint16(offset, 1, true); offset += 2;
+    view.setUint16(offset, numOfChan, true); offset += 2;
+    view.setUint32(offset, buffer.sampleRate, true); offset += 4;
+    view.setUint32(offset, buffer.sampleRate * numOfChan * 2, true); offset += 4;
+    view.setUint16(offset, numOfChan * 2, true); offset += 2;
+    view.setUint16(offset, 16, true); offset += 2;
+    writeString(view, offset, 'data'); offset += 4;
+    view.setUint32(offset, buffer.length * numOfChan * 2, true); offset += 4;
+
+    // interleave
+    const channels = [];
+    for (let i = 0; i < numOfChan; i++) channels.push(buffer.getChannelData(i));
+
+    let sample = 0;
+    while (sample < buffer.length){
+      for (let ch = 0; ch < numOfChan; ch++){
+        let s = Math.max(-1, Math.min(1, channels[ch][sample]));
+        view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+        offset += 2;
+      }
+      sample++;
+    }
+
+    return new Blob([view], { type: 'audio/wav' });
+  }
+</script>
 </body>
 </html>
